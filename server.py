@@ -36,8 +36,11 @@ def submit_form():
     if request.method == 'POST':
         try:
             data = request.form.to_dict()
-            write_to_csv(data)
-            return redirect('/thankyou.html')
+            if len(data['message']) > 29:
+                write_to_csv(data)
+                return redirect('/thankyou.html')
+            else:
+                return redirect('/contact.html')
         except:
             return 'Did not save to database. Try again.'
     else:
